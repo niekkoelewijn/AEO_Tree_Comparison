@@ -37,20 +37,24 @@ epsg(UAVTree1) <- 28992
 UAVTree1 <- filter_poi(UAVTree1, Classification == 4)
 
 # Create table from X, Y & Z values of trees
-
+UAVTree1DF <- data.frame(UAVTree1@data)
 
 ## Estimate DBH ##
 
 # DBH standard in the Netherlands is 1.3 meter
 DBH_H <- 1.3 
 
-# Create a ring of 5 cm around DBH height
-DBH_min <- DBH.H-0.025
-DBH_max <- DBH.H+0.025
+# Create a ring of 10 cm around DBH height
+DBH_min <- DBH.H-0.05
+DBH_max <- DBH.H+0.05
 
 # Take a subset of the tree at the DBH range
-UAVTree1DBHSubset <- subset(UAVTree1, UAVTree1@data[["Z"]] > min(UAVTree1@data[["Z"]]) + DBH_min 
-                            & UAVTree1@data[["Z"]] < min(UAVTree1@data[["Z"]]) + DBH_max)
+UAVTree1DBHSubset <- subset(UAVTree1DF, UAVTree1DF$Z > min(UAVTree1DF$Z) + DBH_min 
+                            & UAVTree1DF$Z < min(UAVTree1DF$Z) + DBH_max)
+
+# Take a look at the DBH subset
+plot3d(x=UAVTree1DF$X,y=UAVTree1DF$Y,z=UAVTree1DF$Z,col="lightgrey",asp=1)
+plot3d(x=UAVTree1DBHSubset$X,y=UAVTree1DBHSubset$Y,z=UAVTree1DBHSubset$Z,col="red",add=T,size=10)
 
 
 
