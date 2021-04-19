@@ -29,40 +29,74 @@ if(!dir.exists(path = "input")) {
   dir.create(path = "input")
 }
 
-# Load trees
+
+## Load trees ##
+
+# Tree 1
 UAVTree1 <- readLAS("input/UAV_tree1.las")
 
-# Set correct espg
+MLSTree1 <- readLAS("input/MLS_tree1.las")
+
+
+## Set correct espg ##
+
+# Tree 1
 epsg(UAVTree1) <- 28992
 
-# Select only those points that are classified as medium vegetation
+epsg(MLSTree1) <- 28992
+
+
+## Select only those points that are classified as medium vegetation, UAV data only ##
+
+# Tree 1
 UAVTree1 <- filter_poi(UAVTree1, Classification == 4)
 
-# Create table from X, Y & Z values of trees
+
+## Create table from X, Y & Z values of trees ##
+
+# Tree 1
 UAVTree1DF <- data.frame(UAVTree1@data)
 
-## Estimate DBH ##
+MLSTree1DF <- data.frame(MLSTree1@data)
 
-# DBH standard in the Netherlands is 1.3 meter
+
+
+### Estimate DBH ###
+
+
+## DBH standard in the Netherlands is 1.3 meter ##
 DBH_H <- 1.3 
 
-# Create a ring of 5 cm around DBH height
+
+## Create a ring of 5 cm around DBH height ##
 DBH_min <- DBH_H-0.025
 DBH_max <- DBH_H+0.025
 
-# Take a subset of the tree at the DBH range
+
+## Take a subset of the tree at the DBH range ##
+
+# Tree 1
 UAVTree1DBHSubset <- subset(UAVTree1DF, UAVTree1DF$Z > min(UAVTree1DF$Z) + DBH_min 
                             & UAVTree1DF$Z < min(UAVTree1DF$Z) + DBH_max)
 
-# Take a look at the DBH point subset
-plot3d(x=UAVTree1DF$X,y=UAVTree1DF$Y,z=UAVTree1DF$Z,col="lightgrey",asp=1)
-plot3d(x=UAVTree1DBHSubset$X,y=UAVTree1DBHSubset$Y,z=UAVTree1DBHSubset$Z,col="red",add=T,size=10)
+MLSTree1DBHSubset <- subset(MLSTree1DF, MLSTree1DF$Z > min(MLSTree1DF$Z) + DBH_min 
+                           & MLSTree1DF$Z < min(MLSTree1DF$Z) + DBH_max)
 
-# Estimate DBH with the lsfit.circle function from the circular package
-UAVTree1Circle1 <- lsfit.circle(x = UAVTree1DBHSubset$X, y = UAVTree1DBHSubset$Y)
+## Take a look at the DBH point subset ##
+# plot3d(x=UAVTree1DF$X,y=UAVTree1DF$Y,z=UAVTree1DF$Z,col="lightgrey",asp=1)
+# plot3d(x=UAVTree1DBHSubset$X,y=UAVTree1DBHSubset$Y,z=UAVTree1DBHSubset$Z,col="red",add=T,size=10)
 
-# Store coefficients in separate variable
-UAVTree1Circle1 <- UAVTree1Circle1$coefficients
+
+## Estimate DBH with the lsfit.circle function from the circular package ##
+## Store onlt coefficients in variable ##
+
+# Tree 1
+UAVTree1Circle <- lsfit.circle(x = UAVTree1DBHSubset$X, y = UAVTree1DBHSubset$Y)
+UAVTree1Circle <- UAVTree1Circle$coefficients
+
+MLSTree1Circle <- lsfit.circle(x = MLSTree1DBHSubset$X, y = MLSTree1DBHSubset$Y)
+MLSTree1Circle <- MLSTree1Circle$coefficients
+
 
 # Visualise DBH subset and circle
 # plot(x=UAVTree1DBHSubset[,1],
@@ -74,21 +108,40 @@ UAVTree1Circle1 <- UAVTree1Circle1$coefficients
 #     ylim=c(min(UAVTree1DBHSubset[,2]),
 #            max(UAVTree1DBHSubset[,2])),
 #     asp=1)
-# draw.circle(x=UAVTree1Circle1[2],y=UAVTree1Circle1[3],radius=UAVTree1Circle1[1],
+# draw.circle(x=UAVTree1Circle[2],y=UAVTree1Circle[3],radius=UAVTree1Circle[1],
 #            lty=2,lwd=4,col=NA,border="red")
 
-# Store DBH in a variable and remove heading
-UAVTree1DBH <- UAVTree1Circle1[1] * 2
+
+## Store DBH in a variable and remove heading ##
+
+# Tree 1
+UAVTree1DBH <- UAVTree1Circle[1] * 2
 names(UAVTree1DBH) <- NULL
 
-## Estimate tree height ##
+MLSTree1DBH <- MLSTree1Circle[1] * 2
+names(MLSTree1DBH) <- NULL
 
-# Derive minimal and maximal Z value of tree 
+
+
+### Estimate tree height ###
+
+
+## Derive minimal and maximal Z value of tree ##
+
+# Tree 1
 UAVTree1DFminZ <- min(UAVTree1DF$Z)
 UAVTree1DFmaxZ <- max(UAVTree1DF$Z)
 
-# Calculate height by substracting maximum from minimum
+MLSTree1DFminZ <- min(MLSTree1DF$Z)
+MLSTree1DFmaxZ <- max(MLSTree1DF$Z)
+
+
+## Calculate height by substracting maximum from minimum ##
+
+# Tree 1
 UAVTree1Height <- UAVTree1DFmaxZ - UAVTree1DFminZ
+
+MLSTree1Height <- MLSTree1DFmaxZ - MLSTree1DFminZ
 
 # Visualize tree and height
 # plot(x=UAVTree1DF[,1],
@@ -105,4 +158,10 @@ UAVTree1Height <- UAVTree1DFmaxZ - UAVTree1DFminZ
 #       length = 0.25, angle = 30,code=3,
 #       col="red",lwd=4)
 
+
+### Store values in a DF
+UAVHeightVector <- c(UAVTree1Height)
+MLSHeightVector <- c(MLSTree1Height)
+UAVDHBVector <- c(UAVTree1DBH)
+MLSDHBVector <- c(MLSTree1DBH)
 
