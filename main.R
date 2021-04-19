@@ -37,6 +37,11 @@ UAVTree1 <- readLAS("input/UAV_tree1.las")
 
 MLSTree1 <- readLAS("input/MLS_tree1.las")
 
+# Tree 2
+UAVTree2 <- readLAS("input/UAV_tree2.las")
+
+MLSTree2 <- readLAS("input/MLS_tree2.las")
+
 
 ## Set correct espg ##
 
@@ -45,11 +50,19 @@ epsg(UAVTree1) <- 28992
 
 epsg(MLSTree1) <- 28992
 
+# Tree 2
+epsg(UAVTree2) <- 28992
 
-## Select only those points that are classified as medium vegetation, UAV data only ##
+epsg(MLSTree2) <- 28992
+
+
+## Select only those points that are classified as 'medium vegetation', UAV data only ##
 
 # Tree 1
 UAVTree1 <- filter_poi(UAVTree1, Classification == 4)
+
+# Tree 2
+UAVTree2 <- filter_poi(UAVTree2, Classification == 4)
 
 
 ## Create table from X, Y & Z values of trees ##
@@ -59,6 +72,10 @@ UAVTree1DF <- data.frame(UAVTree1@data)
 
 MLSTree1DF <- data.frame(MLSTree1@data)
 
+# Tree 2
+UAVTree2DF <- data.frame(UAVTree2@data)
+
+MLSTree2DF <- data.frame(MLSTree2@data)
 
 
 ### Estimate DBH ###
@@ -82,9 +99,17 @@ UAVTree1DBHSubset <- subset(UAVTree1DF, UAVTree1DF$Z > min(UAVTree1DF$Z) + DBH_m
 MLSTree1DBHSubset <- subset(MLSTree1DF, MLSTree1DF$Z > min(MLSTree1DF$Z) + DBH_min 
                            & MLSTree1DF$Z < min(MLSTree1DF$Z) + DBH_max)
 
+# Tree 2
+UAVTree2DBHSubset <- subset(UAVTree2DF, UAVTree2DF$Z > min(UAVTree2DF$Z) + DBH_min 
+                            & UAVTree2DF$Z < min(UAVTree2DF$Z) + DBH_max)
+
+MLSTree2DBHSubset <- subset(MLSTree2DF, MLSTree2DF$Z > min(MLSTree2DF$Z) + DBH_min 
+                            & MLSTree2DF$Z < min(MLSTree2DF$Z) + DBH_max)
+
+
 ## Take a look at the DBH point subset ##
-# plot3d(x=UAVTree1DF$X,y=UAVTree1DF$Y,z=UAVTree1DF$Z,col="lightgrey",asp=1)
-# plot3d(x=UAVTree1DBHSubset$X,y=UAVTree1DBHSubset$Y,z=UAVTree1DBHSubset$Z,col="red",add=T,size=10)
+#plot3d(x=MLSTree2DF$X,y=MLSTree2DF$Y,z=MLSTree2DF$Z,col="lightgrey",asp=1)
+#plot3d(x=MLSTree2DBHSubset$X,y=MLSTree2DBHSubset$Y,z=MLSTree2DBHSubset$Z,col="red",add=T,size=10)
 
 
 ## Estimate DBH with the lsfit.circle function from the circular package ##
@@ -97,18 +122,25 @@ UAVTree1Circle <- UAVTree1Circle$coefficients
 MLSTree1Circle <- lsfit.circle(x = MLSTree1DBHSubset$X, y = MLSTree1DBHSubset$Y)
 MLSTree1Circle <- MLSTree1Circle$coefficients
 
+# Tree 2
+UAVTree2Circle <- lsfit.circle(x = UAVTree2DBHSubset$X, y = UAVTree2DBHSubset$Y)
+UAVTree2Circle <- UAVTree2Circle$coefficients
+
+MLSTree2Circle <- lsfit.circle(x = MLSTree2DBHSubset$X, y = MLSTree2DBHSubset$Y)
+MLSTree2Circle <- MLSTree2Circle$coefficients
+
 
 # Visualise DBH subset and circle
-# plot(x=UAVTree1DBHSubset[,1],
-#     y=UAVTree1DBHSubset[,2],
+# plot(x=UAVTree2DBHSubset[,1],
+#     y=UAVTree2DBHSubset[,2],
 #     col="grey",xlab="X in m",ylab="Y in m",
-#     main=paste("UAV tree 1 - DBH",sep=" "),
-#     xlim=c(min(UAVTree1DBHSubset[,1]),
-#            max(UAVTree1DBHSubset[,1])),
-#     ylim=c(min(UAVTree1DBHSubset[,2]),
-#            max(UAVTree1DBHSubset[,2])),
+#     main=paste("UAV tree 2 - DBH",sep=" "),
+#     xlim=c(min(UAVTree2DBHSubset[,1]),
+#            max(UAVTree2DBHSubset[,1])),
+#     ylim=c(min(UAVTree2DBHSubset[,2]),
+#            max(UAVTree2DBHSubset[,2])),
 #     asp=1)
-# draw.circle(x=UAVTree1Circle[2],y=UAVTree1Circle[3],radius=UAVTree1Circle[1],
+# draw.circle(x=UAVTree2Circle[2],y=UAVTree2Circle[3],radius=UAVTree2Circle[1],
 #            lty=2,lwd=4,col=NA,border="red")
 
 
@@ -121,7 +153,12 @@ names(UAVTree1DBH) <- NULL
 MLSTree1DBH <- MLSTree1Circle[1] * 2
 names(MLSTree1DBH) <- NULL
 
+# Tree 2
+UAVTree2DBH <- UAVTree2Circle[1] * 2
+names(UAVTree2DBH) <- NULL
 
+MLSTree2DBH <- MLSTree2Circle[1] * 2
+names(MLSTree2DBH) <- NULL
 
 ### Estimate tree height ###
 
@@ -135,6 +172,13 @@ UAVTree1DFmaxZ <- max(UAVTree1DF$Z)
 MLSTree1DFminZ <- min(MLSTree1DF$Z)
 MLSTree1DFmaxZ <- max(MLSTree1DF$Z)
 
+# Tree 2
+UAVTree2DFminZ <- min(UAVTree2DF$Z)
+UAVTree2DFmaxZ <- max(UAVTree2DF$Z)
+
+MLSTree2DFminZ <- min(MLSTree2DF$Z)
+MLSTree2DFmaxZ <- max(MLSTree2DF$Z)
+
 
 ## Calculate height by substracting maximum from minimum ##
 
@@ -143,25 +187,31 @@ UAVTree1Height <- UAVTree1DFmaxZ - UAVTree1DFminZ
 
 MLSTree1Height <- MLSTree1DFmaxZ - MLSTree1DFminZ
 
+# Tree 2
+UAVTree2Height <- UAVTree2DFmaxZ - UAVTree2DFminZ
+
+MLSTree2Height <- MLSTree2DFmaxZ - MLSTree2DFminZ
+
+
 # Visualize tree and height
-# plot(x=UAVTree1DF[,1],
-#     y=UAVTree1DF[,3],
-#     col="grey",xlab="X in m",ylab="Z in m",
-#     main=paste("UAV tree 1 - Height",sep=" "),
-#     xlim=c(min(UAVTree1DF[,1])-0.1,
-#            max(UAVTree1DF[,1])+0.1),
-#     ylim=c(min(UAVTree1DF[,3])-0.1,
-#            max(UAVTree1DF[,3])+0.1),
-#     asp=1)
-# arrows(x0=min(UAVTree1DF[,1]),y0=min(UAVTree1DF[,3]),
-#       x1=min(UAVTree1DF[,1]),y1=min(UAVTree1DF[,3]+UAVTree1Height),
-#       length = 0.25, angle = 30,code=3,
-#       col="red",lwd=4)
+ plot(x=MLSTree2DF[,1],
+     y=MLSTree2DF[,3],
+     col="grey",xlab="X in m",ylab="Z in m",
+     main=paste("MLS tree 2 - Height",sep=" "),
+     xlim=c(min(MLSTree2DF[,1])-0.1,
+            max(MLSTree2DF[,1])+0.1),
+     ylim=c(min(MLSTree2DF[,3])-0.1,
+            max(MLSTree2DF[,3])+0.1),
+     asp=1)
+ arrows(x0=min(MLSTree2DF[,1]),y0=min(MLSTree2DF[,3]),
+       x1=min(MLSTree2DF[,1]),y1=min(MLSTree2DF[,3]+MLSTree2Height),
+       length = 0.25, angle = 30,code=3,
+       col="red",lwd=4)
 
 
 ### Store values in a DF
-UAVHeightVector <- c(UAVTree1Height)
-MLSHeightVector <- c(MLSTree1Height)
-UAVDHBVector <- c(UAVTree1DBH)
-MLSDHBVector <- c(MLSTree1DBH)
+UAVHeightVector <- c(UAVTree1Height, UAVTree2Height)
+MLSHeightVector <- c(MLSTree1Height, MLSTree2Height)
+UAVDHBVector <- c(UAVTree1DBH, UAVTree2DBH)
+MLSDHBVector <- c(MLSTree1DBH, MLSTree2DBH)
 
