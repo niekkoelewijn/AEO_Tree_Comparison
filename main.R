@@ -179,6 +179,46 @@ UAVTree4DF <- data.frame(UAVTree4@data)
 
 MLSTree4DF <- data.frame(MLSTree4@data)
 
+# Tree 5
+UAVTree5DF <- data.frame(UAVTree5@data)
+
+MLSTree5DF <- data.frame(MLSTree5@data)
+
+# Tree 6
+UAVTree6DF <- data.frame(UAVTree6@data)
+
+MLSTree6DF <- data.frame(MLSTree6@data)
+
+# Tree 7
+UAVTree7DF <- data.frame(UAVTree7@data)
+
+MLSTree7DF <- data.frame(MLSTree7@data)
+
+# Tree 8
+UAVTree8DF <- data.frame(UAVTree8@data)
+
+MLSTree8DF <- data.frame(MLSTree8@data)
+
+# Tree 9
+UAVTree9DF <- data.frame(UAVTree9@data)
+
+MLSTree9DF <- data.frame(MLSTree9@data)
+
+# Tree 10
+UAVTree10DF <- data.frame(UAVTree10@data)
+
+MLSTree10DF <- data.frame(MLSTree10@data)
+
+# Tree 11
+UAVTree11DF <- data.frame(UAVTree11@data)
+
+MLSTree11DF <- data.frame(MLSTree11@data)
+
+# Tree 12
+UAVTree12DF <- data.frame(UAVTree12@data)
+
+MLSTree12DF <- data.frame(MLSTree12@data)
+
 
 ### Estimate DBH ###
 
@@ -224,6 +264,62 @@ MLSTree4DBHSubset <- subset(MLSTree4DF, MLSTree4DF$Z > min(MLSTree4DF$Z) + DBH_m
                             & MLSTree4DF$Z < min(MLSTree4DF$Z) + DBH_max
                             & MLSTree4DF$X > 177546.6)
 
+# Tree 5
+UAVTree5DBHSubset <- subset(UAVTree5DF, UAVTree5DF$Z > min(UAVTree5DF$Z) + DBH_min 
+                            & UAVTree5DF$Z < min(UAVTree5DF$Z) + DBH_max)
+
+MLSTree5DBHSubset <- subset(MLSTree5DF, MLSTree5DF$Z > min(MLSTree5DF$Z) + DBH_min 
+                            & MLSTree5DF$Z < min(MLSTree5DF$Z) + DBH_max)
+
+# Tree 6
+UAVTree6DBHSubset <- subset(UAVTree6DF, UAVTree6DF$Z > min(UAVTree6DF$Z) + DBH_min 
+                            & UAVTree6DF$Z < min(UAVTree6DF$Z) + DBH_max)
+
+MLSTree6DBHSubset <- subset(MLSTree6DF, MLSTree6DF$Z > min(MLSTree6DF$Z) + DBH_min 
+                            & MLSTree6DF$Z < min(MLSTree6DF$Z) + DBH_max)
+
+# Tree 7
+UAVTree7DBHSubset <- subset(UAVTree7DF, UAVTree7DF$Z > min(UAVTree7DF$Z) + DBH_min 
+                            & UAVTree7DF$Z < min(UAVTree7DF$Z) + DBH_max)
+
+MLSTree7DBHSubset <- subset(MLSTree7DF, MLSTree7DF$Z > min(MLSTree7DF$Z) + DBH_min 
+                            & MLSTree7DF$Z < min(MLSTree7DF$Z) + DBH_max)
+
+# Tree 8
+UAVTree8DBHSubset <- subset(UAVTree8DF, UAVTree8DF$Z > min(UAVTree8DF$Z) + DBH_min 
+                            & UAVTree8DF$Z < min(UAVTree8DF$Z) + DBH_max)
+
+MLSTree8DBHSubset <- subset(MLSTree8DF, MLSTree8DF$Z > min(MLSTree8DF$Z) + DBH_min 
+                            & MLSTree8DF$Z < min(MLSTree8DF$Z) + DBH_max)
+
+# Tree 9
+UAVTree9DBHSubset <- subset(UAVTree9DF, UAVTree9DF$Z > min(UAVTree9DF$Z) + DBH_min 
+                            & UAVTree9DF$Z < min(UAVTree9DF$Z) + DBH_max)
+
+MLSTree9DBHSubset <- subset(MLSTree9DF, MLSTree9DF$Z > min(MLSTree9DF$Z) + DBH_min 
+                            & MLSTree9DF$Z < min(MLSTree9DF$Z) + DBH_max)
+
+# Tree 10
+UAVTree10DBHSubset <- subset(UAVTree10DF, UAVTree10DF$Z > min(UAVTree10DF$Z) + DBH_min 
+                             & UAVTree10DF$Z < min(UAVTree10DF$Z) + DBH_max)
+
+MLSTree10DBHSubset <- subset(MLSTree10DF, MLSTree10DF$Z > min(MLSTree10DF$Z) + DBH_min 
+                             & MLSTree10DF$Z < min(MLSTree10DF$Z) + DBH_max)
+
+# Tree 11
+UAVTree11DBHSubset <- subset(UAVTree11DF, UAVTree11DF$Z > min(UAVTree11DF$Z) + DBH_min 
+                             & UAVTree11DF$Z < min(UAVTree11DF$Z) + DBH_max)
+
+MLSTree11DBHSubset <- subset(MLSTree11DF, MLSTree11DF$Z > min(MLSTree11DF$Z) + DBH_min 
+                             & MLSTree11DF$Z < min(MLSTree11DF$Z) + DBH_max)
+
+# Tree 12
+UAVTree12DBHSubset <- subset(UAVTree12DF, UAVTree12DF$Z > min(UAVTree12DF$Z) + DBH_min 
+                             & UAVTree12DF$Z < min(UAVTree12DF$Z) + DBH_max)
+
+MLSTree12DBHSubset <- subset(MLSTree12DF, MLSTree12DF$Z > min(MLSTree12DF$Z) + DBH_min 
+                             & MLSTree12DF$Z < min(MLSTree12DF$Z) + DBH_max)
+
 
 ## Take a look at the DBH point subset ##
 #plot3d(x=UAVTree2DF$X,y=UAVTree2DF$Y,z=UAVTree2DF$Z,col="lightgrey",asp=1)
@@ -261,19 +357,74 @@ UAVTree4Circle <- UAVTree4Circle$coefficients
 MLSTree4Circle <- lsfit.circle(x = MLSTree4DBHSubset$X, y = MLSTree4DBHSubset$Y)
 MLSTree4Circle <- MLSTree4Circle$coefficients
 
+# Tree 5
+UAVTree5Circle <- lsfit.circle(x = UAVTree5DBHSubset$X, y = UAVTree5DBHSubset$Y)
+UAVTree5Circle <- UAVTree5Circle$coefficients
+
+MLSTree5Circle <- lsfit.circle(x = MLSTree5DBHSubset$X, y = MLSTree5DBHSubset$Y)
+MLSTree5Circle <- MLSTree5Circle$coefficients
+
+# Tree 6
+UAVTree6Circle <- lsfit.circle(x = UAVTree6DBHSubset$X, y = UAVTree6DBHSubset$Y)
+UAVTree6Circle <- UAVTree6Circle$coefficients
+
+MLSTree6Circle <- lsfit.circle(x = MLSTree6DBHSubset$X, y = MLSTree6DBHSubset$Y)
+MLSTree6Circle <- MLSTree6Circle$coefficients
+
+# Tree 7
+UAVTree7Circle <- lsfit.circle(x = UAVTree7DBHSubset$X, y = UAVTree7DBHSubset$Y)
+UAVTree7Circle <- UAVTree7Circle$coefficients
+
+MLSTree7Circle <- lsfit.circle(x = MLSTree7DBHSubset$X, y = MLSTree7DBHSubset$Y)
+MLSTree7Circle <- MLSTree7Circle$coefficients
+
+# Tree 8
+UAVTree8Circle <- lsfit.circle(x = UAVTree8DBHSubset$X, y = UAVTree8DBHSubset$Y)
+UAVTree8Circle <- UAVTree8Circle$coefficients
+
+MLSTree8Circle <- lsfit.circle(x = MLSTree8DBHSubset$X, y = MLSTree8DBHSubset$Y)
+MLSTree8Circle <- MLSTree8Circle$coefficients
+
+# Tree 9
+UAVTree9Circle <- lsfit.circle(x = UAVTree9DBHSubset$X, y = UAVTree9DBHSubset$Y)
+UAVTree9Circle <- UAVTree9Circle$coefficients
+
+MLSTree9Circle <- lsfit.circle(x = MLSTree9DBHSubset$X, y = MLSTree9DBHSubset$Y)
+MLSTree9Circle <- MLSTree9Circle$coefficients
+
+# Tree 10
+UAVTree10Circle <- lsfit.circle(x = UAVTree10DBHSubset$X, y = UAVTree10DBHSubset$Y)
+UAVTree10Circle <- UAVTree10Circle$coefficients
+
+MLSTree10Circle <- lsfit.circle(x = MLSTree10DBHSubset$X, y = MLSTree10DBHSubset$Y)
+MLSTree10Circle <- MLSTree10Circle$coefficients
+
+# Tree 11
+UAVTree11Circle <- lsfit.circle(x = UAVTree11DBHSubset$X, y = UAVTree11DBHSubset$Y)
+UAVTree11Circle <- UAVTree11Circle$coefficients
+
+MLSTree11Circle <- lsfit.circle(x = MLSTree11DBHSubset$X, y = MLSTree11DBHSubset$Y)
+MLSTree11Circle <- MLSTree11Circle$coefficients
+
+# Tree 12
+UAVTree12Circle <- lsfit.circle(x = UAVTree12DBHSubset$X, y = UAVTree12DBHSubset$Y)
+UAVTree12Circle <- UAVTree12Circle$coefficients
+
+MLSTree12Circle <- lsfit.circle(x = MLSTree12DBHSubset$X, y = MLSTree12DBHSubset$Y)
+MLSTree12Circle <- MLSTree12Circle$coefficients
 
 # Visualise DBH subset and circle
- plot(x=UAVTree2DBHSubset[,1],
-     y=UAVTree2DBHSubset[,2],
-     col="grey",xlab="X in m",ylab="Y in m",
-     main=paste("UAV tree 4 - DBH",sep=" "),
-     xlim=c(min(UAVTree2DBHSubset[,1]),
-            max(UAVTree2DBHSubset[,1])),
-     ylim=c(min(UAVTree2DBHSubset[,2]),
-            max(UAVTree2DBHSubset[,2])),
-     asp=1)
- draw.circle(x=UAVTree2Circle[2],y=UAVTree2Circle[3],radius=UAVTree2Circle[1],
-            lty=2,lwd=4,col=NA,border="red")
+# plot(x=UAVTree2DBHSubset[,1],
+#     y=UAVTree2DBHSubset[,2],
+#     col="grey",xlab="X in m",ylab="Y in m",
+#     main=paste("UAV tree 4 - DBH",sep=" "),
+#     xlim=c(min(UAVTree2DBHSubset[,1]),
+#            max(UAVTree2DBHSubset[,1])),
+#     ylim=c(min(UAVTree2DBHSubset[,2]),
+#            max(UAVTree2DBHSubset[,2])),
+#     asp=1)
+# draw.circle(x=UAVTree2Circle[2],y=UAVTree2Circle[3],radius=UAVTree2Circle[1],
+#            lty=2,lwd=4,col=NA,border="red")
 
 
 ## Store DBH in a variable and remove heading ##
@@ -305,6 +456,62 @@ names(UAVTree4DBH) <- NULL
 
 MLSTree4DBH <- MLSTree4Circle[1] * 2
 names(MLSTree4DBH) <- NULL
+
+# Tree 5
+UAVTree5DBH <- UAVTree5Circle[1] * 2
+names(UAVTree5DBH) <- NULL
+
+MLSTree5DBH <- MLSTree5Circle[1] * 2
+names(MLSTree5DBH) <- NULL
+
+# Tree 6
+UAVTree6DBH <- UAVTree6Circle[1] * 2
+names(UAVTree6DBH) <- NULL
+
+MLSTree6DBH <- MLSTree6Circle[1] * 2
+names(MLSTree6DBH) <- NULL
+
+# Tree 7
+UAVTree7DBH <- UAVTree7Circle[1] * 2
+names(UAVTree7DBH) <- NULL
+
+MLSTree7DBH <- MLSTree7Circle[1] * 2
+names(MLSTree7DBH) <- NULL
+
+# Tree 8
+UAVTree8DBH <- UAVTree8Circle[1] * 2
+names(UAVTree8DBH) <- NULL
+
+MLSTree8DBH <- MLSTree8Circle[1] * 2
+names(MLSTree8DBH) <- NULL
+
+# Tree 9
+UAVTree9DBH <- UAVTree9Circle[1] * 2
+names(UAVTree9DBH) <- NULL
+
+MLSTree9DBH <- MLSTree9Circle[1] * 2
+names(MLSTree9DBH) <- NULL
+
+# Tree 10
+UAVTree10DBH <- UAVTree10Circle[1] * 2
+names(UAVTree10DBH) <- NULL
+
+MLSTree10DBH <- MLSTree10Circle[1] * 2
+names(MLSTree10DBH) <- NULL
+
+# Tree 11
+UAVTree11DBH <- UAVTree11Circle[1] * 2
+names(UAVTree11DBH) <- NULL
+
+MLSTree11DBH <- MLSTree11Circle[1] * 2
+names(MLSTree11DBH) <- NULL
+
+# Tree 12
+UAVTree12DBH <- UAVTree12Circle[1] * 2
+names(UAVTree12DBH) <- NULL
+
+MLSTree12DBH <- MLSTree12Circle[1] * 2
+names(MLSTree12DBH) <- NULL
 
 
 ### Estimate tree height ###
