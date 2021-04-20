@@ -52,6 +52,47 @@ UAVTree4 <- readLAS("input/UAV_tree4.las")
 
 MLSTree4 <- readLAS("input/MLS_tree4.las")
 
+# Tree 5
+UAVTree5 <- readLAS("input/UAV_tree5.las")
+
+MLSTree5 <- readLAS("input/MLS_tree5.las")
+
+# Tree 6
+UAVTree6 <- readLAS("input/UAV_tree6.las")
+
+MLSTree6 <- readLAS("input/MLS_tree6.las")
+
+# Tree 7
+UAVTree7 <- readLAS("input/UAV_tree7.las")
+
+MLSTree7 <- readLAS("input/MLS_tree7.las")
+
+# Tree 8
+UAVTree8 <- readLAS("input/UAV_tree8.las")
+
+MLSTree8 <- readLAS("input/MLS_tree8.las")
+
+# Tree 9
+UAVTree9 <- readLAS("input/UAV_tree9.las")
+
+MLSTree9 <- readLAS("input/MLS_tree9.las")
+
+# Tree 10
+UAVTree10 <- readLAS("input/UAV_tree10.las")
+
+MLSTree10 <- readLAS("input/MLS_tree10.las")
+
+# Tree 11
+UAVTree11 <- readLAS("input/UAV_tree11.las")
+
+MLSTree11 <- readLAS("input/MLS_tree11.las")
+
+# Tree 12
+UAVTree12 <- readLAS("input/UAV_tree12.las")
+
+MLSTree12 <- readLAS("input/MLS_tree12.las")
+
+
 ## Set correct espg ##
 
 # Tree 1
@@ -74,20 +115,46 @@ epsg(UAVTree4) <- 28992
 
 epsg(MLSTree4) <- 28992
 
+# Tree 5
+epsg(UAVTree5) <- 28992
 
-## Select only those points that are classified as 'medium vegetation', UAV data only ##
+epsg(MLSTree5) <- 28992
 
-# Tree 1
-UAVTree1 <- filter_poi(UAVTree1, Classification == 4)
+# Tree 6
+epsg(UAVTree6) <- 28992
 
-# Tree 2
-UAVTree2 <- filter_poi(UAVTree2, Classification == 4)
+epsg(MLSTree6) <- 28992
 
-# Tree 3
-UAVTree3 <- filter_poi(UAVTree3, Classification == 4)
+# Tree 7
+epsg(UAVTree7) <- 28992
 
-# Tree 4
-UAVTree4 <- filter_poi(UAVTree4, Classification == 4)
+epsg(MLSTree7) <- 28992
+
+# Tree 8
+epsg(UAVTree8) <- 28992
+
+epsg(MLSTree8) <- 28992
+
+# Tree 9
+epsg(UAVTree9) <- 28992
+
+epsg(MLSTree9) <- 28992
+
+# Tree 10
+epsg(UAVTree10) <- 28992
+
+epsg(MLSTree10) <- 28992
+
+# Tree 11
+epsg(UAVTree11) <- 28992
+
+epsg(MLSTree11) <- 28992
+
+# Tree 12
+epsg(UAVTree12) <- 28992
+
+epsg(MLSTree12) <- 28992
+
 
 
 ## Create table from X, Y & Z values of trees ##
@@ -159,8 +226,8 @@ MLSTree4DBHSubset <- subset(MLSTree4DF, MLSTree4DF$Z > min(MLSTree4DF$Z) + DBH_m
 
 
 ## Take a look at the DBH point subset ##
-#plot3d(x=UAVTree3DF$X,y=UAVTree3DF$Y,z=UAVTree3DF$Z,col="lightgrey",asp=1)
-plot3d(x=MLSTree4DBHSubset$X,y=MLSTree4DBHSubset$Y,z=MLSTree4DBHSubset$Z,col="red",add=T,size=10)
+#plot3d(x=UAVTree2DF$X,y=UAVTree2DF$Y,z=UAVTree2DF$Z,col="lightgrey",asp=1)
+#plot3d(x=UAVTree2DBHSubset$X,y=UAVTree2DBHSubset$Y,z=UAVTree2DBHSubset$Z,col="red",add=T,size=10)
 
 
 ## Estimate DBH with the lsfit.circle function from the circular package ##
@@ -196,16 +263,16 @@ MLSTree4Circle <- MLSTree4Circle$coefficients
 
 
 # Visualise DBH subset and circle
- plot(x=MLSTree4DBHSubset[,1],
-     y=MLSTree4DBHSubset[,2],
+ plot(x=UAVTree2DBHSubset[,1],
+     y=UAVTree2DBHSubset[,2],
      col="grey",xlab="X in m",ylab="Y in m",
-     main=paste("MLS tree 4 - DBH",sep=" "),
-     xlim=c(min(MLSTree4DBHSubset[,1]),
-            max(MLSTree4DBHSubset[,1])),
-     ylim=c(min(MLSTree4DBHSubset[,2]),
-            max(MLSTree4DBHSubset[,2])),
+     main=paste("UAV tree 4 - DBH",sep=" "),
+     xlim=c(min(UAVTree2DBHSubset[,1]),
+            max(UAVTree2DBHSubset[,1])),
+     ylim=c(min(UAVTree2DBHSubset[,2]),
+            max(UAVTree2DBHSubset[,2])),
      asp=1)
- draw.circle(x=MLSTree4Circle[2],y=MLSTree4Circle[3],radius=MLSTree4Circle[1],
+ draw.circle(x=UAVTree2Circle[2],y=UAVTree2Circle[3],radius=UAVTree2Circle[1],
             lty=2,lwd=4,col=NA,border="red")
 
 
