@@ -414,16 +414,16 @@ MLSTree12Circle <- lsfit.circle(x = MLSTree12DBHSubset$X, y = MLSTree12DBHSubset
 MLSTree12Circle <- MLSTree12Circle$coefficients
 
 # Visualise DBH subset and circle
-# plot(x=UAVTree2DBHSubset[,1],
-#     y=UAVTree2DBHSubset[,2],
+#plot(x=UAVTree10DBHSubset[,1],
+#     y=UAVTree10DBHSubset[,10],
 #     col="grey",xlab="X in m",ylab="Y in m",
-#     main=paste("UAV tree 4 - DBH",sep=" "),
-#     xlim=c(min(UAVTree2DBHSubset[,1]),
-#            max(UAVTree2DBHSubset[,1])),
-#     ylim=c(min(UAVTree2DBHSubset[,2]),
-#            max(UAVTree2DBHSubset[,2])),
+#     main=paste("UAV tree 10 - DBH",sep=" "),
+#     xlim=c(min(UAVTree10DBHSubset[,1]),
+#            max(UAVTree10DBHSubset[,1])),
+#     ylim=c(min(UAVTree10DBHSubset[,2]),
+#            max(UAVTree10DBHSubset[,2])),
 #     asp=1)
-# draw.circle(x=UAVTree2Circle[2],y=UAVTree2Circle[3],radius=UAVTree2Circle[1],
+#draw.circle(x=UAVTree10Circle[10],y=UAVTree10Circle[3],radius=UAVTree10Circle[1],
 #            lty=2,lwd=4,col=NA,border="red")
 
 
@@ -547,6 +547,62 @@ UAVTree4DFmaxZ <- max(UAVTree4DF$Z)
 MLSTree4DFminZ <- min(MLSTree4DF$Z)
 MLSTree4DFmaxZ <- max(MLSTree4DF$Z)
 
+# Tree 5
+UAVTree5DFminZ <- min(UAVTree5DF$Z)
+UAVTree5DFmaxZ <- max(UAVTree5DF$Z)
+
+MLSTree5DFminZ <- min(MLSTree5DF$Z)
+MLSTree5DFmaxZ <- max(MLSTree5DF$Z)
+
+# Tree 6
+UAVTree6DFminZ <- min(UAVTree6DF$Z)
+UAVTree6DFmaxZ <- max(UAVTree6DF$Z)
+
+MLSTree6DFminZ <- min(MLSTree6DF$Z)
+MLSTree6DFmaxZ <- max(MLSTree6DF$Z)
+
+# Tree 7
+UAVTree7DFminZ <- min(UAVTree7DF$Z)
+UAVTree7DFmaxZ <- max(UAVTree7DF$Z)
+
+MLSTree7DFminZ <- min(MLSTree7DF$Z)
+MLSTree7DFmaxZ <- max(MLSTree7DF$Z)
+
+# Tree 8
+UAVTree8DFminZ <- min(UAVTree8DF$Z)
+UAVTree8DFmaxZ <- max(UAVTree8DF$Z)
+
+MLSTree8DFminZ <- min(MLSTree8DF$Z)
+MLSTree8DFmaxZ <- max(MLSTree8DF$Z)
+
+# Tree 9
+UAVTree9DFminZ <- min(UAVTree9DF$Z)
+UAVTree9DFmaxZ <- max(UAVTree9DF$Z)
+
+MLSTree9DFminZ <- min(MLSTree9DF$Z)
+MLSTree9DFmaxZ <- max(MLSTree9DF$Z)
+
+# Tree 10
+UAVTree10DFminZ <- min(UAVTree10DF$Z)
+UAVTree10DFmaxZ <- max(UAVTree10DF$Z)
+
+MLSTree10DFminZ <- min(MLSTree10DF$Z)
+MLSTree10DFmaxZ <- max(MLSTree10DF$Z)
+
+# Tree 11
+UAVTree11DFminZ <- min(UAVTree11DF$Z)
+UAVTree11DFmaxZ <- max(UAVTree11DF$Z)
+
+MLSTree11DFminZ <- min(MLSTree11DF$Z)
+MLSTree11DFmaxZ <- max(MLSTree11DF$Z)
+
+# Tree 12
+UAVTree12DFminZ <- min(UAVTree12DF$Z)
+UAVTree12DFmaxZ <- max(UAVTree12DF$Z)
+
+MLSTree12DFminZ <- min(MLSTree12DF$Z)
+MLSTree12DFmaxZ <- max(MLSTree12DF$Z)
+
 
 ## Calculate height by substracting maximum from minimum ##
 
@@ -570,6 +626,46 @@ UAVTree4Height <- UAVTree4DFmaxZ - UAVTree4DFminZ
 
 MLSTree4Height <- MLSTree4DFmaxZ - MLSTree4DFminZ
 
+# Tree 5
+UAVTree5Height <- UAVTree5DFmaxZ - UAVTree5DFminZ
+
+MLSTree5Height <- MLSTree5DFmaxZ - MLSTree5DFminZ
+
+# Tree 6
+UAVTree6Height <- UAVTree6DFmaxZ - UAVTree6DFminZ
+
+MLSTree6Height <- MLSTree6DFmaxZ - MLSTree6DFminZ
+
+# Tree 7
+UAVTree7Height <- UAVTree7DFmaxZ - UAVTree7DFminZ
+
+MLSTree7Height <- MLSTree7DFmaxZ - MLSTree7DFminZ
+
+# Tree 8
+UAVTree8Height <- UAVTree8DFmaxZ - UAVTree8DFminZ
+
+MLSTree8Height <- MLSTree8DFmaxZ - MLSTree8DFminZ
+
+# Tree 9
+UAVTree9Height <- UAVTree9DFmaxZ - UAVTree9DFminZ
+
+MLSTree9Height <- MLSTree9DFmaxZ - MLSTree9DFminZ
+
+# Tree 10
+UAVTree10Height <- UAVTree10DFmaxZ - UAVTree10DFminZ
+
+MLSTree10Height <- MLSTree10DFmaxZ - MLSTree10DFminZ
+
+# Tree 11
+UAVTree11Height <- UAVTree11DFmaxZ - UAVTree11DFminZ
+
+MLSTree11Height <- MLSTree11DFmaxZ - MLSTree11DFminZ
+
+# Tree 12
+UAVTree12Height <- UAVTree12DFmaxZ - UAVTree12DFminZ
+
+MLSTree12Height <- MLSTree12DFmaxZ - MLSTree12DFminZ
+
 
 # Visualize tree and height
  plot(x=UAVTree4DF[,1],
@@ -587,13 +683,26 @@ MLSTree4Height <- MLSTree4DFmaxZ - MLSTree4DFminZ
        col="red",lwd=4)
 
 
-### Store values in a DF
+### Store values in a DF ###
 UAVHeightVector <- c(UAVTree1Height, UAVTree2Height, UAVTree3Height,
-                     UAVTree4Height)
+                     UAVTree4Height, UAVTree5Height, UAVTree6Height,
+                     UAVTree7Height, UAVTree8Height, UAVTree9Height,
+                     UAVTree10Height, UAVTree11Height, UAVTree12Height)
 MLSHeightVector <- c(MLSTree1Height, MLSTree2Height, MLSTree3Height,
-                     MLSTree4Height)
+                     MLSTree4Height, MLSTree5Height, MLSTree6Height,
+                     MLSTree7Height, MLSTree8Height, MLSTree9Height,
+                     MLSTree10Height, MLSTree11Height, MLSTree12Height)
 UAVDBHVector <- c(UAVTree1DBH, UAVTree2DBH, UAVTree3DBH,
-                  UAVTree4DBH)
+                  UAVTree4DBH, UAVTree5DBH, UAVTree6DBH,
+                  UAVTree7DBH, UAVTree8DBH, UAVTree9DBH,
+                  UAVTree10DBH, UAVTree11DBH, UAVTree12DBH)
 MLSDBHVector <- c(MLSTree1DBH, MLSTree2DBH, MLSTree3DBH,
-                  MLSTree4DBH)
+                  MLSTree4DBH, MLSTree5DBH, MLSTree6DBH,
+                  MLSTree7DBH, MLSTree8DBH, MLSTree9DBH,
+                  MLSTree10DBH, MLSTree11DBH, MLSTree12DBH)
+
+
+### Statistical Analysis
+
+# 
 
