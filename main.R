@@ -14,6 +14,7 @@ if(!"raster" %in% rownames(installed.packages())){install.packages("raster")}
 if(!"colorRamps" %in% rownames(installed.packages())){install.packages("colorRamps")}
 if(!"lidR" %in% rownames(installed.packages())){install.packages("lidR")}
 if(!"plotrix" %in% rownames(installed.packages())){install.packages("plotrix")}
+if(!"car" %in% rownames(installed.packages())){install.packages("car")}
 
 # Load required packages
 library(rgl)
@@ -23,6 +24,8 @@ library(sp)
 library(colorRamps)
 library(lidR)
 library(plotrix)
+library(car)
+library(dplyr)
 
 # Create input directory
 if(!dir.exists(path = "input")) {
@@ -220,6 +223,7 @@ UAVTree12DF <- data.frame(UAVTree12@data)
 MLSTree12DF <- data.frame(MLSTree12@data)
 
 
+
 ### Estimate DBH ###
 
 
@@ -326,6 +330,7 @@ MLSTree12DBHSubset <- subset(MLSTree12DF, MLSTree12DF$Z > min(MLSTree12DF$Z) + D
 #plot3d(x=UAVTree2DBHSubset$X,y=UAVTree2DBHSubset$Y,z=UAVTree2DBHSubset$Z,col="red",add=T,size=10)
 
 
+
 ## Estimate DBH with the lsfit.circle function from the circular package ##
 ## Store onlt coefficients in variable ##
 
@@ -427,6 +432,7 @@ MLSTree12Circle <- MLSTree12Circle$coefficients
 #            lty=2,lwd=4,col=NA,border="red")
 
 
+
 ## Store DBH in a variable and remove heading ##
 
 # Tree 1
@@ -512,6 +518,7 @@ names(UAVTree12DBH) <- NULL
 
 MLSTree12DBH <- MLSTree12Circle[1] * 2
 names(MLSTree12DBH) <- NULL
+
 
 
 ### Estimate tree height ###
@@ -668,19 +675,19 @@ MLSTree12Height <- MLSTree12DFmaxZ - MLSTree12DFminZ
 
 
 # Visualize tree and height
- plot(x=UAVTree4DF[,1],
-     y=UAVTree4DF[,3],
-     col="grey",xlab="X in m",ylab="Z in m",
-     main=paste("UAV tree 4 - Height",sep=" "),
-     xlim=c(min(UAVTree4DF[,1])-0.1,
-            max(UAVTree4DF[,1])+0.1),
-     ylim=c(min(UAVTree4DF[,3])-0.1,
-            max(UAVTree4DF[,3])+0.1),
-     asp=1)
- arrows(x0=min(UAVTree4DF[,1]),y0=min(UAVTree4DF[,3]),
-       x1=min(UAVTree4DF[,1]),y1=min(UAVTree4DF[,3]+UAVTree4Height),
-       length = 0.25, angle = 30,code=3,
-       col="red",lwd=4)
+# plot(x=UAVTree4DF[,1],
+#     y=UAVTree4DF[,3],
+#     col="grey",xlab="X in m",ylab="Z in m",
+#     main=paste("UAV tree 4 - Height",sep=" "),
+#     xlim=c(min(UAVTree4DF[,1])-0.1,
+#            max(UAVTree4DF[,1])+0.1),
+#     ylim=c(min(UAVTree4DF[,3])-0.1,
+#            max(UAVTree4DF[,3])+0.1),
+#     asp=1)
+# arrows(x0=min(UAVTree4DF[,1]),y0=min(UAVTree4DF[,3]),
+#       x1=min(UAVTree4DF[,1]),y1=min(UAVTree4DF[,3]+UAVTree4Height),
+#       length = 0.25, angle = 30,code=3,
+#       col="red",lwd=4)
 
 
 ### Store values in a DF ###
@@ -702,7 +709,39 @@ MLSDBHVector <- c(MLSTree1DBH, MLSTree2DBH, MLSTree3DBH,
                   MLSTree10DBH, MLSTree11DBH, MLSTree12DBH)
 
 
-### Statistical Analysis
 
-# 
+### Statistical Analysis ###
+
+# Show histograms of the distribution
+hist(UAVHeightVector, breaks = 6, main = paste("UAV Heigt Histogram"), xlab = "Heigt")
+hist(MLSHeightVector, breaks = 6, main = paste("MLS Heigt Histogram"), xlab = "Height")
+hist(UAVDBHVector, breaks = 10, main = paste("UAV DBH Histogram"), xlab = "DBH")
+hist(MLSDBHVector, breaks = 6, main = paste("MLS DBH Histogram"), xlab = "DBH")
+
+# Show boxplots of the distribution
+boxplot(UAVHeightVector, MLSHeightVector, main = "Boxplot of height of UAV and MLS trees", ylab = "Height in meters", names = c("UAV", "MLS"))
+boxplot(UAVDBHVector, MLSDBHVector, main = "Boxplot of DBH of UAV and MLS trees", ylab = "DBH in meters", names = c("UAV", "MLS"))
+
+# Combine height vectors and DBH vectors for Levenes test
+LeveneVectorHeight <- c(UAVHeightVector, MLSHeightVector)
+LeveneVectorDBH <- c(UAVDBHVector, MLSDBHVector)
+
+# Perform Levenes test
+group1 <- as.factor(c(rep(1, length(UAVHeightVector)), rep(2, length(MLSHeightVector))))
+group2 <- as.factor(c(rep(1, length(UAVDBHVector)), rep(2, length(MLSDBHVector))))
+leveneTest(LeveneVectorHeight, group1)
+leveneTest(LeveneVectorDBH, group2)
+
+# Two sample t-test
+t.test(UAVHeightVector,MLSHeightVector, var.equal = T, alternative = "two.sided")
+t.test(UAVDBHVector,MLSDBHVector, var.equal = T, alternative = "two.sided")
+
+# Paired t-test
+t.test(UAVHeightVector,MLSHeightVector, paired = T, mu = 0, alternative = "two.sided")
+t.test(UAVDBHVector,MLSDBHVector, paired = T, mu = 0, alternative = "two.sided")
+
+# Create paired DF
+TreeVector <- c(1,2,3,4,5,6,7,8,9,10,11,12)
+PairedHeight <- cbind(TreeVector, UAVHeightVector, MLSHeightVector)
+colnames(PairedHeight) <- c("TreeID", "UAV Height", "MLS Height") 
 
