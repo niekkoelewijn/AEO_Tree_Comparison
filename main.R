@@ -764,3 +764,25 @@ ggscatter(DBHDF, x = "UAV", y = "MLS",
           conf.int = TRUE, cor.coef = TRUE,
           cor.coeff.args = list(method = "pearson", label.x = 0.2, label.sep = "\n"),
           ggtheme = theme_gray(base_size = 14), title = "Correlation between measured tree DBH of MLS and UAV")
+
+# Create dataframe to make histograms
+HeightUAVHistDF <- data.frame(TreeID = 1:12, Category = "UAV", Height = UAVHeightVector)
+HeightMLSHistDF <- data.frame(TreeID = 1:12, Category = "MLS", Height = MLSHeightVector)
+HeightHistDF <- rbind(HeightUAVHistDF, HeightMLSHistDF)
+
+DBHUAVHistDF <- data.frame(TreeID = 1:12, Category = "UAV", DBH = UAVDBHVector)
+DBHMLSHistDF <- data.frame(TreeID = 1:12, Category = "MLS", DBH = MLSDBHVector)
+DBHHistDF <- rbind(DBHUAVHistDF, DBHMLSHistDF)
+
+# Create the histograms
+gghistogram(HeightHistDF, x = "Height", add = "mean",
+            rug = TRUE, color = "Category", fill = "Category",
+            palette = c("#00AFBB", "#E7B800"), bins=8,
+            ggtheme = theme_gray(base_size = 14),
+            title = "Frequency of measured tree height values of MLS and UAV")
+
+gghistogram(DBHHistDF, x = "DBH", add = "mean",
+            rug = TRUE, color = "Category", fill = "Category",
+            palette = c("#00AFBB", "#E7B800"), bins=7,
+            ggtheme = theme_gray(base_size = 14),
+            title = "Frequency of measured tree DBH values of MLS and UAV")
