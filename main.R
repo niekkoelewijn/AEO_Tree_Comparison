@@ -746,3 +746,21 @@ ggpaired(DBHDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
          xlab = "Category", ylab = "DBH in meters", ggtheme = theme_gray(base_size = 14),
          title = "Boxplot measured tree DBH by MLS and UAV", 
          font.label = 1, "plain")
+
+# Scatterplots made with ggplot2
+ggscatter(HeightDF, x = "UAV", y = "MLS",
+          color = "black", shape = 21, size = 3,
+          add = "reg.line", 
+          add.params = list(color = "blue", fill = "lightgray"),
+          conf.int = TRUE, cor.coef = TRUE,
+          cor.coeff.args = list(method = "pearson", label.x = 20, label.sep = "\n"),
+          ggtheme = theme_gray(base_size = 14),
+          title = "Correlation between measured tree height of MLS and UAV")
+
+ggscatter(DBHDF, x = "UAV", y = "MLS",
+          color = "black", shape = 21, size = 3,
+          add = "reg.line", 
+          add.params = list(color = "blue", fill = "lightgray"),
+          conf.int = TRUE, cor.coef = TRUE,
+          cor.coeff.args = list(method = "pearson", label.x = 0.2, label.sep = "\n"),
+          ggtheme = theme_gray(base_size = 14), title = "Correlation between measured tree DBH of MLS and UAV")
