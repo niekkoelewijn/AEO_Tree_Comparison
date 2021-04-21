@@ -15,6 +15,8 @@ if(!"colorRamps" %in% rownames(installed.packages())){install.packages("colorRam
 if(!"lidR" %in% rownames(installed.packages())){install.packages("lidR")}
 if(!"plotrix" %in% rownames(installed.packages())){install.packages("plotrix")}
 if(!"car" %in% rownames(installed.packages())){install.packages("car")}
+if(!"ggplot2" %in% rownames(installed.packages())){install.packages("ggplot2")}
+if(!"ggpubr" %in% rownames(installed.packages())){install.packages("ggpubr")}
 
 # Load required packages
 library(rgl)
@@ -26,6 +28,8 @@ library(lidR)
 library(plotrix)
 library(car)
 library(dplyr)
+library(ggplot2)
+library(ggpubr)
 
 # Create input directory
 if(!dir.exists(path = "input")) {
@@ -722,26 +726,23 @@ hist(MLSDBHVector, breaks = 6, main = paste("MLS DBH Histogram"), xlab = "DBH")
 boxplot(UAVHeightVector, MLSHeightVector, main = "Boxplot of height of UAV and MLS trees", ylab = "Height in meters", names = c("UAV", "MLS"))
 boxplot(UAVDBHVector, MLSDBHVector, main = "Boxplot of DBH of UAV and MLS trees", ylab = "DBH in meters", names = c("UAV", "MLS"))
 
-# Combine height vectors and DBH vectors for Levenes test
-LeveneVectorHeight <- c(UAVHeightVector, MLSHeightVector)
-LeveneVectorDBH <- c(UAVDBHVector, MLSDBHVector)
-
-# Perform Levenes test
-group1 <- as.factor(c(rep(1, length(UAVHeightVector)), rep(2, length(MLSHeightVector))))
-group2 <- as.factor(c(rep(1, length(UAVDBHVector)), rep(2, length(MLSDBHVector))))
-leveneTest(LeveneVectorHeight, group1)
-leveneTest(LeveneVectorDBH, group2)
-
-# Two sample t-test
-t.test(UAVHeightVector,MLSHeightVector, var.equal = T, alternative = "two.sided")
-t.test(UAVDBHVector,MLSDBHVector, var.equal = T, alternative = "two.sided")
-
 # Paired t-test
 t.test(UAVHeightVector,MLSHeightVector, paired = T, mu = 0, alternative = "two.sided")
 t.test(UAVDBHVector,MLSDBHVector, paired = T, mu = 0, alternative = "two.sided")
 
 # Create paired DF
-TreeVector <- c(1,2,3,4,5,6,7,8,9,10,11,12)
-PairedHeight <- cbind(TreeVector, UAVHeightVector, MLSHeightVector)
-colnames(PairedHeight) <- c("TreeID", "UAV Height", "MLS Height") 
+HeightDF <- data.frame(UAV = UAVHeightVector, MLS = MLSHeightVector)
+DBHDF <- data.frame(UAV = UAVDBHVector, MLS = MLSDBHVector)
 
+# Boxplots made with ggplot2
+ggpaired(HeightDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
+         palette = "jco", line.color = "gray", point.size = 0.5, line.size = 0.2,
+         xlab = "Category", ylab = "Height in meters", ggtheme = theme_gray(base_size = 14),
+         title = "Boxplot measured tree height by MLS and UAV", 
+         font.label = 1, "plain")
+
+ggpaired(DBHDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
+         palette = "jco", line.color = "gray", point.size = 0.5, line.size = 0.2,
+         xlab = "Category", ylab = "DBH in meters", ggtheme = theme_gray(base_size = 14),
+         title = "Boxplot measured tree DBH by MLS and UAV", 
+         font.label = 1, "plain")
