@@ -736,13 +736,13 @@ DBHDF <- data.frame(UAV = UAVDBHVector, MLS = MLSDBHVector)
 
 # Boxplots made with ggplot2
 ggpaired(HeightDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
-         palette = "jco", line.color = "gray", point.size = 0.5, line.size = 0.2,
+         palette = c("#00AFBB", "#E7B800"), line.color = "gray", point.size = 0.5, line.size = 0.2,
          xlab = "Category", ylab = "Height in meters", ggtheme = theme_gray(base_size = 14),
          title = "Boxplot measured tree height by MLS and UAV", 
          font.label = 1, "plain")
 
 ggpaired(DBHDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
-         palette = "jco", line.color = "gray", point.size = 0.5, line.size = 0.2,
+         palette = c("#00AFBB", "#E7B800"), line.color = "gray", point.size = 0.5, line.size = 0.2,
          xlab = "Category", ylab = "DBH in meters", ggtheme = theme_gray(base_size = 14),
          title = "Boxplot measured tree DBH by MLS and UAV", 
          font.label = 1, "plain")
@@ -778,11 +778,11 @@ DBHHistDF <- rbind(DBHUAVHistDF, DBHMLSHistDF)
 gghistogram(HeightHistDF, x = "Height", add = "mean",
             rug = TRUE, color = "Category", fill = "Category",
             palette = c("#00AFBB", "#E7B800"), bins=8,
-            ggtheme = theme_gray(base_size = 14),
+            ggtheme = theme_gray(base_size = 14), ylab = "Frequency",
             title = "Frequency of measured tree height values of MLS and UAV")
 
 gghistogram(DBHHistDF, x = "DBH", add = "mean",
             rug = TRUE, color = "Category", fill = "Category",
             palette = c("#00AFBB", "#E7B800"), bins=7,
-            ggtheme = theme_gray(base_size = 14),
+            ggtheme = theme_gray(base_size = 14), ylab = "Frequency",
             title = "Frequency of measured tree DBH values of MLS and UAV")
