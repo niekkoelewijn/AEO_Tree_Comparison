@@ -424,7 +424,7 @@ MLSTree12Circle <- MLSTree12Circle$coefficients
 
 # Visualise DBH subset and circle
 #plot(x=UAVTree10DBHSubset[,1],
-#     y=UAVTree10DBHSubset[,10],
+#     y=UAVTree10DBHSubset[,2],
 #     col="grey",xlab="X in m",ylab="Y in m",
 #     main=paste("UAV tree 10 - DBH",sep=" "),
 #     xlim=c(min(UAVTree10DBHSubset[,1]),
@@ -432,7 +432,7 @@ MLSTree12Circle <- MLSTree12Circle$coefficients
 #     ylim=c(min(UAVTree10DBHSubset[,2]),
 #            max(UAVTree10DBHSubset[,2])),
 #     asp=1)
-#draw.circle(x=UAVTree10Circle[10],y=UAVTree10Circle[3],radius=UAVTree10Circle[1],
+#draw.circle(x=UAVTree10Circle[2],y=UAVTree10Circle[3],radius=UAVTree10Circle[1],
 #            lty=2,lwd=4,col=NA,border="red")
 
 
