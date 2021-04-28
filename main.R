@@ -734,7 +734,7 @@ t.test(UAVDBHVector,MLSDBHVector, paired = T, mu = 0, alternative = "two.sided")
 HeightDF <- data.frame(UAV = UAVHeightVector, MLS = MLSHeightVector)
 DBHDF <- data.frame(UAV = UAVDBHVector, MLS = MLSDBHVector)
 
-# Boxplots made with ggplot2
+# Boxplots made with ggpubr
 ggpaired(HeightDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
          palette = c("#00AFBB", "#E7B800"), line.color = "gray", point.size = 0.5, line.size = 0.2,
          xlab = "Category", ylab = "Height in meters", ggtheme = theme_gray(base_size = 14),
@@ -747,7 +747,7 @@ ggpaired(DBHDF, cond1 = "UAV", cond2 = "MLS", fill = "condition",
          title = "Boxplot measured tree DBH by MLS and UAV", 
          font.label = 1, "plain")
 
-# Scatterplots made with ggplot2
+# Scatterplots made with ggpubr
 ggscatter(HeightDF, x = "UAV", y = "MLS",
           color = "black", shape = 21, size = 3,
           add = "reg.line", 
@@ -774,7 +774,7 @@ DBHUAVHistDF <- data.frame(TreeID = 1:12, Category = "UAV", DBH = UAVDBHVector)
 DBHMLSHistDF <- data.frame(TreeID = 1:12, Category = "MLS", DBH = MLSDBHVector)
 DBHHistDF <- rbind(DBHUAVHistDF, DBHMLSHistDF)
 
-# Create the histograms
+# Create the histograms with ggpubr
 gghistogram(HeightHistDF, x = "Height", add = "mean",
             rug = TRUE, color = "Category", fill = "Category",
             palette = c("#00AFBB", "#E7B800"), bins=8,
